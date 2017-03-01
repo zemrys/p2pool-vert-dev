@@ -4,11 +4,9 @@ Generic:
 * Bitcoin >=0.11.1
 * Python >=2.6
 * Twisted >=10.0.0
-* python-argparse (for Python =2.6)
 
 Linux:
-* sudo apt-get install python-zope.interface python-twisted python-twisted-web
-* sudo apt-get install python-argparse # if on Python 2.6
+* sudo apt-get install python-rrdtool python-pygame python-scipy python-twisted python-twisted-web python-imaging
 
 Windows:
 * Install Python 2.7: http://www.python.org/getit/
@@ -23,13 +21,18 @@ Running P2Pool:
 To use P2Pool, you must be running your own local bitcoind. For standard
 configurations, using P2Pool should be as simple as:
 
-    python run_p2pool.py
+    cd lyra2re-hash-python
+    git submodule init
+    git submodule update
+    sudo python setup.py install
+    cd ../
+    python run_p2pool.py --net vertcoin
 
-Then run your miner program, connecting to 127.0.0.1 on port 9332 with any
+Then run your miner program, connecting to 127.0.0.1 on port 9171 with any
 username and password.
 
 If you are behind a NAT, you should enable TCP port forwarding on your
-router. Forward port 9333 to the host running P2Pool.
+router. Forward port 9346 to the host running P2Pool.
 
 Run for additional options.
 
