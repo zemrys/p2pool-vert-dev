@@ -73,7 +73,7 @@ class StratumRPCMiningProvider(object):
         )
 
 	# Disconnect miners with large DOA rates to prevent DoS
-	res = got_response(header, worker_name, coinb_nonce)
+        res = got_response(header, worker_name, coinb_nonce)
         if float(len(self.wb._inner.my_doa_share_hashes)) / float(len(self.wb._inner.my_share_hashes)) > 0.60 and len(self.wb._inner.my_share_hashes) > 20:
             self.transport.loseConnection()
         return res    
