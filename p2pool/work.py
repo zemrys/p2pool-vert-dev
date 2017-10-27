@@ -361,11 +361,10 @@ class WorkerBridge(worker_interface.WorkerBridge):
         else:
             current_time = time.time()
             if (current_time - print_throttle) > 5.0:
-        print 'New work for worker %s! Difficulty: %.06f Share difficulty: %.06f Total block value: %.6f %s including %i transactions' % (
+        print 'New work for worker! Difficulty: %.06f Share difficulty: %.06f Total block value: %.6f %s including %i transactions' % (
             pubkey_hash,
             bitcoin_data.target_to_difficulty(target),
             bitcoin_data.target_to_difficulty(share_info['bits'].target),
-            local_addr_rates.get(pubkey_hash, 0),
             self.current_work.value['subsidy']*1e-8, self.node.net.PARENT.SYMBOL,
             len(self.current_work.value['transactions']),
         )
