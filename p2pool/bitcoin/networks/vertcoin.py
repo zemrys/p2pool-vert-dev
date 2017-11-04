@@ -24,5 +24,5 @@ BLOCK_EXPLORER_URL_PREFIX='http://explorer.vtconline.org/block/'
 ADDRESS_EXPLORER_URL_PREFIX='http://explorer.vtconline.org/address/'
 TX_EXPLORER_URL_PREFIX='http://explorer.vtconline.org/tx/'
 SANE_TARGET_RANGE=(2**256//1000000000000000000 - 1, 2**256//100000 - 1)
-DUMB_SCRYPT_DIFF=256
+DUMB_SCRYPT_DIFF=16
 DUST_THRESHOLD=0.03e8
