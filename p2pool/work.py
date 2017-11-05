@@ -51,6 +51,9 @@ class WorkerBridge(worker_interface.WorkerBridge):
         self.last_work_shares = variable.Variable( {} )
         self.my_share_hashes = set()
         self.my_doa_share_hashes = set()
+        
+        self.invalid_hashes = 0
+        self.total_hashes = 0
 
         self.address_throttle = 0
         
@@ -511,10 +514,13 @@ class WorkerBridge(worker_interface.WorkerBridge):
                 
                 self.share_received.happened(bitcoin_data.target_to_average_attempts(share.target), not on_time, share.hash)
             
+            self.total_hashes += 1
+            
             if pow_hash > target:
                 print 'Worker %s submitted share with hash > target:' % (user,)
                 print '    Hash:   %56x' % (pow_hash,)
                 print '    Target: %56x' % (target,)
+                self.invalid_hashes += 1
             elif header_hash in received_header_hashes:
                 print >>sys.stderr, 'Worker %s submitted share more than once!' % (user,)
             else:
