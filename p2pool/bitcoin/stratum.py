@@ -81,7 +81,7 @@ class StratumRPCMiningProvider(object):
 
         # Disconnect miners with large hash > target to prevent DoS
         if self.wb._inner.total_hashes > 20:
-            if float(self.wb._inner.invalid_hashes) / float(self.wb._inner.total_hashes) > 0.25:
+            if float(self.wb._inner.invalid_hashes) / float(self.wb._inner.total_hashes) > 0.05:
                 self.transport.loseConnection()
                 return res
 
