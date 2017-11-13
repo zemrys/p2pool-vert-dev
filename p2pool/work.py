@@ -51,6 +51,9 @@ class WorkerBridge(worker_interface.WorkerBridge):
         self.last_work_shares = variable.Variable( {} )
         self.my_share_hashes = set()
         self.my_doa_share_hashes = set()
+        
+        self.invalid_hashes = 0
+        self.total_hashes = 0
 
         self.address_throttle = 0
         
@@ -176,7 +179,7 @@ class WorkerBridge(worker_interface.WorkerBridge):
         
         desired_pseudoshare_target = None
         desired_share_target = None
-        for symbol, parameter in zip(contents2[::2], contents2[1::2]):
+        '''for symbol, parameter in zip(contents2[::2], contents2[1::2]):
             if symbol == '+':
                 try:
                     desired_pseudoshare_target = bitcoin_data.difficulty_to_target_alt(float(parameter), self.node.net.PARENT.DUMB_SCRYPT_DIFF)
@@ -189,6 +192,7 @@ class WorkerBridge(worker_interface.WorkerBridge):
                 except:
                     if p2pool.DEBUG:
                         log.err()
+        '''
 
         if self.args.address == 'dynamic':
             i = self.pubkeys.weighted()
@@ -510,10 +514,13 @@ class WorkerBridge(worker_interface.WorkerBridge):
                 
                 self.share_received.happened(bitcoin_data.target_to_average_attempts(share.target), not on_time, share.hash)
             
+            self.total_hashes += 1
+            
             if pow_hash > target:
                 print 'Worker %s submitted share with hash > target:' % (user,)
                 print '    Hash:   %56x' % (pow_hash,)
                 print '    Target: %56x' % (target,)
+                self.invalid_hashes += 1
             elif header_hash in received_header_hashes:
                 print >>sys.stderr, 'Worker %s submitted share more than once!' % (user,)
             else:
