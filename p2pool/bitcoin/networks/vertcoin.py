@@ -11,10 +11,7 @@ P2P_PREFIX='fabfb5da'.decode('hex')
 P2P_PORT=5889
 ADDRESS_VERSION=71
 RPC_PORT=5888
-RPC_CHECK=defer.inlineCallbacks(lambda bitcoind: defer.returnValue(
-    'vertcoinaddress' in (yield bitcoind.rpc_help()) and
-    not (yield bitcoind.rpc_getinfo())['testnet']
-))
+RPC_CHECK=lambda bitcoind: True
 SUBSIDY_FUNC=lambda height: 50*100000000 >> (height + 1)//840000
 POW_FUNC=lambda data: pack.IntType(256).unpack(__import__('lyra2re2_hash').getPoWHash(data))
 BLOCK_PERIOD=150 # s
